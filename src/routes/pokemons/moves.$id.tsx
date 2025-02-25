@@ -1,11 +1,12 @@
-import { getPokemonById } from "@/api/pokemon";
+import { getPokemonByIdQuery } from "@/api/pokemon";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pokemons/moves/$id")({
   component: RouteComponent,
-  loader: ({ params }) => getPokemonById(params.id),
+  loader: ({ params, context: { queryClient } }) =>
+    queryClient.ensureQueryData(getPokemonByIdQuery(params.id)),
 });
 
 function RouteComponent() {

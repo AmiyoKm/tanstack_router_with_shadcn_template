@@ -1,15 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { getPokemonWithOffset } from "../../api/pokemon";
+import { getPokemonWithOffsetQuery } from "../../api/pokemon";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { PokemonSearchQuery } from "@/schema/queries";
 
 export const Route = createFileRoute("/pokemons/")({
-  validateSearch: (search: { offset?: string; limit?: string }) => {
-    return {
-      offset: search.offset ? parseInt(search.offset, 10) : 0,
-      limit: search.limit ? parseInt(search.limit, 10) : 48,
-    };
-  },
+  validateSearch: PokemonSearchQuery,
   component: Pokemon,
   loaderDeps: ({ search }) => {
     return {
@@ -17,8 +13,10 @@ export const Route = createFileRoute("/pokemons/")({
       limit: search.limit,
     };
   },
-  loader: async ({ deps }) => {
-    return getPokemonWithOffset(deps.offset, deps.limit);
+  loader: async ({ deps, context: { queryClient } }) => {
+    return queryClient.ensureQueryData(
+      getPokemonWithOffsetQuery(deps.limit, deps.offset)
+    );
   },
 });
 

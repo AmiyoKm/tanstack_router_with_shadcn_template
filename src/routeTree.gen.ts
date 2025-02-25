@@ -121,20 +121,20 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-  | '/'
-  | '/about'
-  | '/pokemons/$id'
-  | '/pokemons'
-  | '/pokemons/moves/$id'
+    | '/'
+    | '/about'
+    | '/pokemons/$id'
+    | '/pokemons'
+    | '/pokemons/moves/$id'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/about' | '/pokemons/$id' | '/pokemons' | '/pokemons/moves/$id'
   id:
-  | '__root__'
-  | '/'
-  | '/about'
-  | '/pokemons/$id'
-  | '/pokemons/'
-  | '/pokemons/moves/$id'
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/pokemons/$id'
+    | '/pokemons/'
+    | '/pokemons/moves/$id'
   fileRoutesById: FileRoutesById
 }
 
